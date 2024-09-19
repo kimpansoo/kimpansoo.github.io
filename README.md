@@ -1,1 +1,0 @@
-# kimpansoo.github.io
