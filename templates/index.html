@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>졸음 감지기 (Drowsiness Detector)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 모바일 최적화 스타일 */
+        body { 
+            touch-action: manipulation; 
+            max-width: 100%; 
+            overflow-x: hidden; 
+        }
+        video, canvas { 
+            max-width: 100%; 
+            height: auto; 
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-4">
+    <div class="container mx-auto">
+        <h1 class="text-2xl font-bold text-center mb-4">졸음감지기</h1>
+        
+        <div class="text-center mb-4">
+            <video id="videoInput" width="640" height="480" autoplay playsinline></video>
+            <canvas id="videoCanvas" width="640" height="480" class="hidden"></canvas>
+        </div>
+
+        <div id="drowsyAlert" class="text-red-600 font-bold text-center text-2xl mt-2 hidden">
+            졸음 감지됨!!!
+        </div>
+
+        <div class="bg-white p-4 rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold mb-4">설정</h2>
+            
+            <div class="mb-4">
+                <label class="block mb-2">민감도 설정</label>
+                <div class="grid grid-cols-3 gap-2">
+                    <button onclick="setSensitivity(0.14)" class="bg-blue-500 text-white px-2 py-1 rounded">1단계</button>
+                    <button onclick="setSensitivity(0.16)" class="bg-blue-500 text-white px-2 py-1 rounded">2단계</button>
+                    <button onclick="setSensitivity(0.18)" class="bg-blue-500 text-white px-2 py-1 rounded">3단계</button>
+                    <button onclick="setSensitivity(0.20)" class="bg-blue-500 text-white px-2 py-1 rounded">4단계</button>
+                    <button onclick="setSensitivity(0.22)" class="bg-blue-500 text-white px-2 py-1 rounded">5단계</button>
+                </div>
+            </div>
+
+            <button onclick="startCamera()" class="w-full bg-green-500 text-white py-2 rounded mb-2">
+                카메라 시작
+            </button>
+
+            <div class="mt-4">
+                <h3 class="font-semibold mb-2">검지 로그:</h3>
+                <div id="logArea" class="bg-gray-200 h-40 overflow-y-auto p-2 rounded"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const socket = io('http://YOUR_COMPUTER_IP:5000');  // IP 주소 변경 필요
+        const videoInput = document.getElementById('videoInput');
+        const videoCanvas = document.getElementById('videoCanvas');
+        const ctx = videoCanvas.getContext('2d');
+        const drowsyAlert = document.getElementById('drowsyAlert');
+        const logArea = document.getElementById('logArea');
+
+        async function startCamera() {
+            try {
+                // 전면/후면 카메라 선택 가능
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: { 
+                        facingMode: 'user'  // 전면 카메라 
+                        // facingMode: 'environment'  // 후면 카메라
+                    }
+                });
+                videoInput.srcObject = stream;
+                videoInput.play();
+                addLog('카메라 연결 성공');
+            } catch (error) {
+                addLog(`카메라 오류: ${error}`);
+                console.error('Camera error:', error);
+            }
+        }
+
+        socket.on('connect', () => {
+            addLog('웹소켓 연결 성공');
+        });
+
+        videoInput.addEventListener('play', () => {
+            function processFrame() {
+                if (videoInput.paused || videoInput.ended) return;
+                
+                ctx.drawImage(videoInput, 0, 0, videoCanvas.width, videoCanvas.height);
+                
+                // 프레임을 base64로 변환하여 서버로 전송
+                const frameData = videoCanvas.toDataURL('image/jpeg');
+                socket.emit('process_frame', { frame: frameData.split(',')[1] });
+                
+                requestAnimationFrame(processFrame);
+            }
+            processFrame();
+        });
+
+        socket.on('video_frame', (data) => {
+            drowsyAlert.classList.toggle('hidden', !data.drowsy);
+        });
+
+        function setSensitivity(value) {
+            socket.emit('update_sensitivity', { sensitivity: value });
+            addLog(`민감도 설정: ${value}`);
+        }
+
+        function addLog(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            logArea.innerHTML = `${timestamp} - ${message}<br>` + logArea.innerHTML;
+        }
+    </script>
+</body>
+</html>
