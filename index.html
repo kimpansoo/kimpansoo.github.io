@@ -1,139 +1,91 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<!-- DW6 -->
+<!DOCTYPE html>
+<html>
 <head>
-<meta charset="utf-8">	
-<!-- Copyright 2005 Macromedia, Inc. All rights reserved. -->
-<title>Home Page</title>
-<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
-<link rel="stylesheet" href="mm_travel2.css" type="text/css" />
-<script language="JavaScript" type="text/javascript">
-//--------------- LOCALIZEABLE GLOBALS ---------------
-var d=new Date();
-var monthname=new Array("January","February","March","April","May","June","July","August","September","October","November","December");
-//Ensure correct for language. English is "January 1, 2004"
-var TODAY = monthname[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear();
-//---------------   END LOCALIZEABLE   ---------------
-</script>
-<style type="text/css">
-<!--
-.style2 {
-	font-size: 28px;
-	font-weight: bold;
-}
-.style8 {font-size: 28px         
-}
--->
-.small-line{
-	font-size: 20px;
-	line-height:1.5;
-	}
-.style13 {font-size: 24px}
-.style16 {font-size: 16px}
-footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-        }
-.style17 {
-	color: #00FF00;
-	font-size: 15px;
-	font-weight: bold;
-}
-.style18 {
-	color: #00FF00;
-	font-size: 15px;
-}
-</style>
+    <title>WebRTC 스마트폰 카메라 연결</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
 </head>
-<body bgcolor="#C0DFFD">
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr bgcolor="#3366CC">    
-    <td colspan="3" rowspan="2" background="img/2.png"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     
-      <p>&nbsp;</p>
-    <p>&nbsp;&nbsp; <img src="img/new_site.png" width="750" height="110" border="0" usemap="#Map" /></p>
-   
-    <td height="63" colspan="3" id="logo" valign="bottom" align="center" nowrap="nowrap">&nbsp;</td>
-    <td width="391">&nbsp;</td>
-  </tr>
-  <tr bgcolor="#3366CC">
-    <td height="171" colspan="3" id="tagline" valign="top" align="center"><p class="style13">&nbsp;</p>
-    <p class="style13">&nbsp;</p></td>
-	<td width="391">&nbsp;</td>
-  </tr>
-  </tr>
- <tr>
-    <td width="300" valign="top" bgcolor="#C0DFFD">
-	<table border="0" cellspacing="0" cellpadding="0" width="356" id="navigation">
-		 <tr>
-          <td width="300", height="2"><div align="left"><a href="index.html"><img src="img/menu_0.png" width="320" height="72" border="0" /></a></div></td>
-        </tr>
-		 <tr>
-          <td width="300", height="2"><div align="left"><a href="sub_whatsky.html"><img src="img/menu_1.png" width="320" height="72" border="0" /></a></div></td>
-        </tr>
-        <tr>
-          <td width="300", height="2"><div align="left"><a href="sub_maker.html"><img src="img/menu_2.png" width="320" height="72" border="0" /></a></div></td>
-        </tr>
-		<td width="300", height="2"><div align="left"><a href="sub_14p.html"><img src="img/menu_3.png" width="320" height="72" border="0" /></a></div></td>
-        <tr>
-          <td width="300", height="2"><div align="left"><a href="sub_23p.html"><img src="img/menu_4.png" width="320" height="72" border="0" /></a></div></td>
-        </tr>
-		<td width="300", height="2"><div align="left"><a href="sub_jet.html"><img src="img/menu_5.png" width="320" height="72" border="0" /></a></div></td>
-       
-      </table>
-    <td colspan="2" valign="top">
-    <img src="img/main_tlt_info_0.png" width="1000" height="1150" />
-    <img src="img/main_tlt_info.png" width="1000" height="1000" />
-<td width="400" valign="top"><br />
-		<table border="0" cellspacing="0" cellpadding="0" width="190">
-			<tr>
-			<td height="41" colspan="3" align="center" class="subHeader style13"><img src="img/shop.png" width="320" height="72" /></td>
-			</tr>
-			<tr>
-			<td width="40"><img src="mm_spacer.gif" alt="" width="40" height="1" border="0" /></td>
-			<td width="110" id="sidebar" class="smallText"><p>&nbsp;</p>
-			  <p><img src="img/14.png" width="320" height="72" /><br />
-		      </p>
-			  <p align="center"><img src="img/14p_s.png" width="173" height="211" /></p>
-			<p align="center"><br />
-			  <span class="style16">&nbsp;&nbsp;&nbsp;</span><img src="img/menu_a.png" width="320" height="100" /></p>
-			<p align="center"><br />
-			  <a href="img/14p_order.png" target="_blank"><img src="img/go.png" width="320" height="72" border="0" /></a> </p>
-			<p align="center">&nbsp;</p>
-			<p align="center">&nbsp;</p>
-			<p align="center">&nbsp;</p>
-			<p align="center">&nbsp;</p>
-			<p align="center"><img src="img/23.png" width="320" height="72" /></p>
-			<p align="center"><img src="img/23p_s.png" width="219" height="141" /><br />
-			  </p>
-			<p align="center"><img src="img/menu_b.png" width="320" height="100" /><br />
-		      </p>
-			<p align="center"><a href="img/23p_order.png" target="_blank"><img src="img/go.png" width="320" height="72" border="0" /></a></p>
-			<p>&nbsp;</p>
-			<p>&nbsp;</p>
-			<p>&nbsp;</p>
-			<p>&nbsp;</p>
-			<p><img src="img/jet.png" width="320" height="72" /></p>
-			<p>&nbsp;</p>
-			<p align="center"><img src="img/ar.png" width="65" height="225" /></p>
-			<p align="center"><br />
-			  <img src="img/menu_c.png" width="320" height="100" />			</p>
-			<p align="center"><a href="img/jet_order.png" target="_blank"><img src="img/go.png" width="320" height="72" border="0" /></a></p>
-			<br />
-			&nbsp;<br />			</td>
-			<td width="40">&nbsp;</td>
-			</tr>
-	</table>	</td>
-	<td width="391">&nbsp;</td>
-  </tr> 
-  
-</table>
- <footer> 
-        <p align="center"><img src="img/foot.png" width="500" height="80" /></p>
-</footer>
+<body>
+    <video id="localVideo" autoplay playsinline></video>
+    <video id="remoteVideo" autoplay playsinline></video>
 
-<map name="Map" id="Map"><area shape="rect" coords="21,30,297,74" href="https://kps3029.creatorlink.net/" target="_blank" alt="??? ????? ????" />
-<area shape="rect" coords="337,32,563,77" href="https://band.us/band/73835662" target="_blank" alt="??? ??? ??" />
-</map></body>
+    <script>
+        const socket = io();
+        const localVideo = document.getElementById('localVideo');
+        const remoteVideo = document.getElementById('remoteVideo');
+
+        let localStream;
+        let peerConnection;
+
+        // STUN 서버 설정
+        const configuration = {
+            iceServers: [
+                { urls: 'stun:stun.l.google.com:19302' }
+            ]
+        };
+
+        // 미디어 스트림 가져오기
+        async function startWebRTC() {
+            try {
+                // 사용자의 미디어 스트림 요청
+                localStream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: 'environment' }, // 후면 카메라 우선
+                    audio: false
+                });
+
+                localVideo.srcObject = localStream;
+
+                // Peer Connection 생성
+                peerConnection = new RTCPeerConnection(configuration);
+
+                // 로컬 스트림의 트랙을 피어 커넥션에 추가
+                localStream.getTracks().forEach(track => {
+                    peerConnection.addTrack(track, localStream);
+                });
+
+                // ICE 후보 수집 시작
+                peerConnection.onicecandidate = event => {
+                    if (event.candidate) {
+                        socket.emit('ice-candidate', event.candidate);
+                    }
+                };
+
+                // 원격 스트림 처리
+                peerConnection.ontrack = event => {
+                    remoteVideo.srcObject = event.streams[0];
+                };
+
+                // Offer 생성
+                const offer = await peerConnection.createOffer();
+                await peerConnection.setLocalDescription(offer);
+
+                // 서버로 Offer 전송
+                socket.emit('offer', offer);
+            } catch (error) {
+                console.error('WebRTC 설정 중 오류:', error);
+            }
+        }
+
+        // Socket.IO 이벤트 리스너
+        socket.on('offer', async (offer) => {
+            if (!peerConnection) {
+                await startWebRTC();
+            }
+            await peerConnection.setRemoteDescription(new RTCSessionDescription(offer));
+            const answer = await peerConnection.createAnswer();
+            await peerConnection.setLocalDescription(answer);
+            socket.emit('answer', answer);
+        });
+
+        socket.on('answer', async (answer) => {
+            await peerConnection.setRemoteDescription(new RTCSessionDescription(answer));
+        });
+
+        socket.on('ice-candidate', async (candidate) => {
+            await peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
+        });
+
+        // 페이지 로드 시 WebRTC 시작
+        startWebRTC();
+    </script>
+</body>
 </html>
